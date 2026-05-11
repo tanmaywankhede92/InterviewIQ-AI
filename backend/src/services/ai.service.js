@@ -114,6 +114,8 @@
 
 // module.exports = generateInterviewReport;
 
+// new code
+
 const { GoogleGenAI } = require("@google/genai");
 const { z } = require("zod");
 const { zodToJsonSchema } = require("zod-to-json-schema");
@@ -283,7 +285,7 @@ async function generateResumePdf({ resume, selfDescription, jobDescription }) {
     },
   });
 
-  const jsonContent = JSON.parse(response.text);
+  const jsonContent = JSON.parse(response.text());
 
   const pdfBuffer = await generatePdfFromHtml(jsonContent.html);
 
