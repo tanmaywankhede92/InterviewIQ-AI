@@ -1,15 +1,22 @@
-import { createContext, useState } from "react";
-export const AuthContext = createContext();
+import { createContext,useState } from "react";
 
-import { UNSAFE_decodeViaTurboStream } from "react-router";
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(UNSAFE_decodeViaTurboStream);
+export const AuthContext = createContext()
 
-  return (
-    <AuthContext.Provider value={{ user, setUser, loading, setLoading }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
+
+export const AuthProvider = ({ children }) => { 
+
+    const [user, setUser] = useState(null)
+    const [loading, setLoading] = useState(true)
+
+    
+
+
+    return (
+        <AuthContext.Provider value={{user,setUser,loading,setLoading}} >
+            {children}
+        </AuthContext.Provider>
+    )
+
+    
+}
