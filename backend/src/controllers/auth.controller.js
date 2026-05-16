@@ -83,7 +83,23 @@ async function loginUserController(req, res) {
     { expiresIn: "1d" },
   );
 
-  res.cookie("token", token);
+  // res.cookie("token", token);
+  // res.status(200).json({
+  //   message: "User loggedIn successfully.",
+  //   user: {
+  //     id: user._id,
+  //     username: user.username,
+  //     email: user.email,
+  //   },
+  // });
+  const isProduction = process.env.NODE_ENV === "production";
+
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "None" : "Lax",
+  });
+
   res.status(200).json({
     message: "User loggedIn successfully.",
     user: {
