@@ -5,6 +5,10 @@ const api = axios.create({
   withCredentials: true,
 });
 
+function getApiError(err) {
+  return new Error(err?.response?.data?.message || err?.message || "Something went wrong");
+}
+
 export async function register({ username, email, password }) {
   try {
     const response = await api.post("/api/auth/register", {
@@ -15,7 +19,7 @@ export async function register({ username, email, password }) {
 
     return response.data;
   } catch (err) {
-    console.log(err);
+    throw getApiError(err);
   }
 }
 
@@ -28,7 +32,7 @@ export async function login({ email, password }) {
 
     return response.data;
   } catch (err) {
-    console.log(err);
+    throw getApiError(err);
   }
 }
 
@@ -37,7 +41,9 @@ export async function logout() {
     const response = await api.get("/api/auth/logout");
 
     return response.data;
-  } catch (err) {}
+  } catch (err) {
+    throw getApiError(err);
+  }
 }
 
 export async function getMe() {
@@ -46,6 +52,6 @@ export async function getMe() {
 
     return response.data;
   } catch (err) {
-    console.log(err);
+    throw getApiError(err);
   }
 }
